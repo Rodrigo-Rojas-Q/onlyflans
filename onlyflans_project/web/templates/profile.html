@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center text-center">
+        <div class="col-md-4">
+            <h1 class="text-center">Editar Perfil</h1>
+            <h2>Perfil de {{ user.username }}</h2>
+            <form method="post" class="mb-3" action="{% url 'edit_profile' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="bio">
+                        Bio:
+                    </label>
+                    <textarea id="bio" name="bio">{{ bio }}</textarea>
+                </div>
+                <div class="text-center mb-3">
+                    <label for="birth_date">
+                        Fecha de Nacimiento:
+                    </label>
+                    <p>{{birth_date}}</p>
+                    <div>Editar: </div>
+                    <input type="date" id="birth_date" name="birth_date" value="{{ profile.birth_date}}">
+                </div>
+                <div class="btnlogin">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+            {% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <h1 class="text-center">Iniciar Sesión</h1>
+            <form method="post" class="mb-3">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">
+                        Nombre de usuario:
+                    </label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                    {% if error_message %}
+                    <p style="color:red;">{{ error_message }}</p>
+                    {% endif %}
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        Contraseña:
+                    </label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    {% if error_message %}
+                    <p style="color:red;">{{ error_message }}</p>
+                    {% endif %}
+                </div>
+                <div class="btnlogin">
+                    <button id="btnlogin" type="submit" class="btn ">Iniciar Sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

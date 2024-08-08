@@ -1,22 +1,46 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand ms-3" href="/">OnlyFlans</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Inicio</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'about' %}">Acerca</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'welcome' %}">Bienvenido a Onlyflans</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
-            </li>
-        </ul>
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-3" href="/">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" style="height:60px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul id="navcentral" class="navbar-nav mx-auto">
+                <li class="nav-item me-3 {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                </li>
+                <li class="nav-item me-3 {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'about' %}">Acerca</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item me-3 {% if request.resolver_match.url_name == 'welcome' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'welcome' %}">Bienvenido</a>
+                </li>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <li class="nav-item me-3 {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'profile' username=user.username %}">Perfil</a>
+                </li>
+                {% endif %}
+                <li class="nav-item me-3 {% if request.resolver_match.url_name == 'contacto' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                </li>
+            </ul>
+            <ul id="navlogin" class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                <li id="logoutnav" class="nav-item me-3">
+                    <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
 </nav>

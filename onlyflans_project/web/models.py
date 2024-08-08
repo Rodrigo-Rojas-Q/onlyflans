@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import uuid
 
 class Flan(models.Model):
@@ -21,3 +22,17 @@ class ContactForm(models.Model):
 
     def __str__(self):
         return self.Nombre
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True, null=True)
+    birth_date = models.DateField(blank=True, null=True)
+    public_bio = models.BooleanField(default=True)
+    public_birth_date = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return self.user.username
+    
+
+    
+    
