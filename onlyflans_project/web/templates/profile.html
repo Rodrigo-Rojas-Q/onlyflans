@@ -19,7 +19,7 @@
                     </label>
                     <p>{{birth_date}}</p>
                     <div>Editar: </div>
-                    <input type="date" id="birth_date" name="birth_date" value="{{ profile.birth_date}}">
+                    <input type="date" id="birth_date" name="birth_date" value="{{ profile.birth_date|date:"Y-m-d"}}">
                 </div>
                 <div class="btnlogin">
                     <button type="submit" class="btn btn-custom">Guardar Cambios</button>
@@ -29,4 +29,4 @@
         </div>
     </div>
 </div>
-            {% endblock %}
+{% endblock %}
