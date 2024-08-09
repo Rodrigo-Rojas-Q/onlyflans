@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from . models import Flan, Profile
-from . forms import ContactFormForm, LoginForm, ProfileForm
+from . models import Flan, Profile, Comment
+from . forms import ContactFormForm, LoginForm, ProfileForm, CommentForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -104,7 +104,25 @@ def edit_profile(request):
             profile = request.user.profile
         except Profile.DoesNotExist:
             profile = Profile(user=request.user)  # Crear un perfil vacío si no existe
-        
-        
-        
+          
         return render(request, 'web/profile.html', context)
+    
+@login_required
+def flan_detail(request, slug):
+    flan = get_object_or_404(Flan, slug=slug)
+    comments = flan.comments.all()
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.flan = flan
+            comment.user = request.user
+            comment.save()
+            return redirect('flan_detail', slug=slug)
+    else:
+        comment_form = CommentForm()
+    return render(request, 'flan_detail.html', {
+        'flan': flan,
+        'comments': comments,
+        'comment_form': comment_form
+    })

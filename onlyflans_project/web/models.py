@@ -33,6 +33,10 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
     
-
+class Comment(models.Model):
+    flan = models.ForeignKey(Flan, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
     
     

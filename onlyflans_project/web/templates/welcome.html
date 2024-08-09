@@ -14,6 +14,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ flan.name }}</h5>
                     <p class="card-text">{{ flan.description }}</p>
+                    <div class="card-footer">
+                        <a href="{% url 'flan_detail' flan.slug %}" class="btn btn-custom">Ver Detalles</a>
+                    </div>
                 </div>
             </div>
         </div>

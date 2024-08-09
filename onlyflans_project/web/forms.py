@@ -1,5 +1,5 @@
 from django import forms
-from .models import ContactForm, Profile            
+from .models import ContactForm, Profile, Comment            
 
 class ContactFormForm(forms.ModelForm):
     Correo_Electronico = forms.EmailField(label='Correo')
@@ -21,3 +21,10 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['bio', 'birth_date', 'public_bio', 'public_birth_date']
         
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 4, 'cols': 40, 'class': 'form-control'}),
+        }

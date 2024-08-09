@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Contacto{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card mb-4">
+        <div class="row no-gutters">
+            <!-- Imagen del Flan -->
+            <div class="col-md-6">
+                <img src="{{ flan.image_url }}" class="card-img" alt="{{ flan.name }}">
+            </div>
+            <!-- Contenido del Flan -->
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h2 class="card-title">{{ flan.name }}</h2>
+                    <p class="card-text">{{ flan.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4>Comentarios</h4>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            
+            <button type="submit" class="btn btn-custom">Agregar comentario</button>
+        </form>
+    {% else %}
+        <p>Inicia sesión para dejar un comentario.</p>
+    {% endif %}
+    <div class="mt-4">
+        {% for comment in comments %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">{{ comment.user.username }}</h5>
+                    <p class="card-text">{{ comment.content }}</p>
+                    <p class="text-muted">{{ comment.created_at }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay comentarios todavía.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

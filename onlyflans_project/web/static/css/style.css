@@ -53,3 +53,11 @@
     border-radius: 15%;
     
 }
+
+.btn-custom {
+    background-color: #7478c8; /* Color de fondo personalizado */
+    color: white;              /* Color de texto personalizado */
+    border: none;              /* Quita el borde por defecto */
+    display: flex;
+    justify-content: center;
+}

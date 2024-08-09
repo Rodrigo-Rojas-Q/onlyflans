@@ -7,16 +7,22 @@
     <h1> INICIO </h1>
     <div class="row">
         {% for flan in flanes %}
-        <div class="col-md-3">
-            <div class="card">
+        <div class="col-md-3 mb-3">
+            <div class="card h-100">
                 <img src="{{ flan.image_url }}" class="card-img-top" alt="{{ flan.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ flan.name }}</h5>
                     <p class="card-text">{{ flan.description }}</p>
                 </div>
+                {% if user.is_authenticated %}
+                <div class="card-footer">
+                    <a id="btnlogin" href="{% url 'flan_detail' flan.slug %}" class="btn btnlogin ">Ver Detalles</a>
+                </div>
+                {% endif %}
             </div>
         </div>
         {% endfor %}
     </div>
 
 {% endblock %}
+
