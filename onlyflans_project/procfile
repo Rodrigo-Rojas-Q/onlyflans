@@ -1,1 +1,1 @@
-web: gunicorn onlyflans.wsgi
+web: gunicorn onlyflans_project.wsgi
